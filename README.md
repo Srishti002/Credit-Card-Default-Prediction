@@ -59,6 +59,80 @@ Random Forest outperforms Logistic Regression on AUC-ROC and overall classificat
 <img width="526" height="477" alt="image" src="https://github.com/user-attachments/assets/e254bfaf-94a3-4d2d-8e29-0887f35cb111" />
 
 
+## Installation:
+
+1. Clone the repo
+2. Install dependencies: pip install -r requirements.txt
+3. Download the dataset : UCI_Credit_Card.csv
+4. Open *Credit_card_default.ipynb* adn run cell by cell
+
+## Feature Engineering Details: 
+
+Three new features were created to improve model performance:
+1. AVG_UTIL_RATE: Average Credit Utilization Rate
+   
+   AVG_UTIL_RATE = mean(BILL_AMT1..6) / LIMIT_BAL
+   
+   Measures what fraction of the credit limit is typically used. High values indicate the customer is close to their limit.
+
+2. AVG_PAY_RATIO: Average Payment Ratio
+
+   AVG_PAY_RATIO = mean(PAY_AMTi / BILL_AMTi)  for each month where BILL > 0
+
+   Captures how consistently a customer pays their bills. A low ratio means they're only making minimum payments.
+
+3. TOTAL_DELAY_MONTHS: Total Months with Payment Delay
+
+   TOTAL_DELAY_MONTHS = count(PAY_x > 0)
+
+   Counts how many of the 6 months had a recorded payment delay. A direct signal of repayment behavior.
+
+## Fairness Analysis: 
+
+<img width="1192" height="393" alt="image" src="https://github.com/user-attachments/assets/ffed4a03-9d0b-482d-a21f-8dd80ff901ec" />
+
+
+The model was audited for demographic fairness by computing:
+
+- False Positive Rate (FPR): Among people who did NOT default, how many were wrongly flagged?
+- False Negative Rate (FNR): Among people who DID default, how many were missed?
+
+These were computed separately for:
+- Gender (Male vs Female)
+- Education Level (Graduate / University / High School / Other)
+
+
+
+## SHAP Explainability: 
+
+<img width="792" height="639" alt="image" src="https://github.com/user-attachments/assets/dcf031a4-ee93-45ba-99af-c829cee1026b" />
+
+<img width="778" height="911" alt="image" src="https://github.com/user-attachments/assets/2baa50b9-f8b9-48cb-8548-435b729ee15d" />
+
+
+SHAP was used to make the Random Forest interpretable:
+
+- Beeswarm Plot: Shows which features push predictions toward or away from default across the entire test set.
+- Waterfall Plot: Explains a single customer's prediction step-by-step, showing which features contributed most to their risk score.
+
+## SQL Insights: 
+Three SQL queries were run on the dataset using an in-memory SQLite database:
+
+- Default rate by education level :Which education group defaults most?
+- nProfile of defaulters vs non-defaulters: Average credit limit and age.
+- Highest-risk segments: Marriage × Education combinations with the highest default rates.
+
+- <img width="793" height="352" alt="image" src="https://github.com/user-attachments/assets/4aa3f632-6d69-4d5d-9c0b-38c7bfdf38e4" />
+
+
+
+
+   
+
+   
+
+
+
    
 
 

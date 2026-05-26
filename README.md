@@ -41,6 +41,24 @@ UCI_Credit_Card.csv
 6. SQL queries (SQLite in-memory)
 7. Fairness audit — FPR/FNR by gender & education
 8. SHAP beeswarm + waterfall plots
+
+## Results: 
+### Model Performance: 
+<img width="583" height="412" alt="image" src="https://github.com/user-attachments/assets/397f1e4d-c526-407d-a82b-93bf9f99a1d0" />
+
+Random Forest outperforms Logistic Regression on AUC-ROC and overall classification metrics.
+
+### Top 5 Predictive Features (by Correlation & Random Forest Importance)
+1. PAY_0              — Most recent repayment delay status
+2. PAY_2              — Repayment delay 2 months ago
+3. PAY_3              — Repayment delay 3 months ago
+4. TOTAL_DELAY_MONTHS — Engineered: total months with delay
+5. AVG_PAY_RATIO      — Engineered: how much of each bill was paid
+
+### Confusion Matrix ( Random Forest):
+<img width="526" height="477" alt="image" src="https://github.com/user-attachments/assets/e254bfaf-94a3-4d2d-8e29-0887f35cb111" />
+
+
    
 
 
